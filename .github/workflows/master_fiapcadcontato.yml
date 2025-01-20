@@ -23,7 +23,7 @@ jobs:
 
       - name: Build with dotnet
         run: dotnet build FiapCadContato.sln --configuration Release
-        working-directory: FiapCadContato/FiapCadContato
+        working-directory: FiapCadContato
           
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
