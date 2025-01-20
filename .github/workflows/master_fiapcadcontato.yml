@@ -20,6 +20,10 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '3.1'
+          
+      - name: Test
+        run: dotnet test Fiap.Test.csproj --no-restore --verbosity normal
+        working-directory: Fiap.Test
 
       - name: Build with dotnet
         run: dotnet build FiapCadContato.sln --configuration Release
