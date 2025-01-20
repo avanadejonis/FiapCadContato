@@ -1,0 +1,6 @@
+@FiapCadContato_HostAddress = http://localhost:5129
+
+GET {{FiapCadContato_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
