@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '3.1'
 
       - name: Build with dotnet
-         WORKDIR "FiapCadContato/FiapCadContato/"
+         WORKDIR "/FiapCadContato/FiapCadContato/"
         run: dotnet build FiapCadContato.csproj -c Release -o /app
       
       - name: dotnet publish
