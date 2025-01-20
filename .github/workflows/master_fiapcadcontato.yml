@@ -22,7 +22,8 @@ jobs:
           dotnet-version: '3.1'
 
       - name: Build with dotnet
-        run: dotnet build FiapCadContato.FiapCadContato.sln --configuration Release
+         WORKDIR "/src/FiapCadContato/FiapCadContato"
+        run: dotnet build FiapCadContato.csproj --configuration Release
       
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
