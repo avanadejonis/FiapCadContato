@@ -41,7 +41,6 @@ jobs:
     steps:
       - name: Test
         run: dotnet test Fiap.Test.csproj --verbosity minimal
-        working-directory: ./Fiap.Test
 
   deploy:
     runs-on: windows-latest
