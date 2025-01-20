@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '3.1'
 
       - name: Build with dotnet
-        run: dotnet build FiapCadContato.sln --configuration Release
+        run: dotnet build FiapCadContato.sln --configuration Release -o /myapp
         working-directory: FiapCadContato
           
       - name: dotnet publish
