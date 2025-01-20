@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '3.1'
           
       - name: Test
-        run: dotnet test Fiap.Test.csproj --no-restore --verbosity normal
+        run: dotnet test Fiap.Test.csproj --verbosity minimal
         working-directory: ./Fiap.Test
 
       - name: Build with dotnet
