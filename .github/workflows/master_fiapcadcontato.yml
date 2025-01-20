@@ -23,7 +23,7 @@ jobs:
           
       - name: Test
         run: dotnet test Fiap.Test.csproj --no-restore --verbosity normal
-        working-directory: Fiap.Test
+        working-directory: FiapCadContato/Fiap.Test
 
       - name: Build with dotnet
         run: dotnet build FiapCadContato.sln --configuration Release
