@@ -10,9 +10,18 @@ on:
   workflow_dispatch:
 
 jobs:
+
+  testing:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: dotnet test Fiap.Test.csproj --verbosity minimal
+        working-directory: Fiap.Test
+
   build:
     runs-on: windows-latest
-
+    needs: testing
     steps:
       - uses: actions/checkout@v4
 
@@ -20,12 +29,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '3.1'
-
+          
       - name: Build with dotnet
-        run: dotnet build --configuration Release
-
+        run: dotnet build FiapCadContato.sln --configuration Release
+        working-directory: FiapCadContato
+          
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        working-directory: FiapCadContato
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
