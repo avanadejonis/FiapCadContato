@@ -14,13 +14,14 @@ jobs:
   testing:
     runs-on: windows-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Test
         run: dotnet test Fiap.Test.csproj --verbosity minimal
-        working-directory: FiapCadContato/Fiap.Test
+        working-directory: FiapCadContato\Fiap.Test
 
   build:
     runs-on: windows-latest
-
+    needs: testing
     steps:
       - uses: actions/checkout@v4
 
@@ -45,7 +46,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: testing
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
