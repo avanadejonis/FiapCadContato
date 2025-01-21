@@ -1,0 +1,26 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+  
+  - job_name: "services"
+    static_configs:
+      - targets: ["host.docker.internal:7079"]
+    metrics_path: '/actuator/prometheus'
+
+  - job_name: 'spring-actuator'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['docker.for.win.localhost:8082']
+
+  - job_name: 'FiapCadContato'
+    scheme: https
+    static_configs:
+      - targets: ['localhost:7079']
+
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']

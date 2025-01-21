@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Domain", "..\Fiap.Doma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Infraestructure", "..\Fiap.Infraestructure\Fiap.Infraestructure.csproj", "{1F353D7A-8415-4A90-88A6-7D71FF14F2AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fiap.Test", "..\Fiap.Test\Fiap.Test.csproj", "{538B4407-E2F9-4A64-AAA0-6BC7312E8E7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fiap.Test", "..\Fiap.Test\Fiap.Test.csproj", "{538B4407-E2F9-4A64-AAA0-6BC7312E8E7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3CFE4C7B-35E5-473A-A6B3-AE54D0FAE83A}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		prometheus.yml = prometheus.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

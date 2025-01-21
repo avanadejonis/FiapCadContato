@@ -4,6 +4,7 @@ using Fiap.Infraestructure.Repositories;
 using FiapCadContato.Validators;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Prometheus;
 
 namespace FiapCadContato.Controllers
 {
@@ -13,6 +14,10 @@ namespace FiapCadContato.Controllers
     {
         private readonly IContatoRepository<Contato> _contatoService;
         private readonly ILogger<ContatosController> _logger;
+        Counter _counter;
+        Histogram _histogram;
+        Gauge _gauge;
+        Summary _summary;
 
 
         public ContatosController(IContatoRepository<Contato> contatoRepository, ILogger<ContatosController> logger)
@@ -143,7 +148,6 @@ namespace FiapCadContato.Controllers
         public ActionResult Post([FromBody] Contato contato)
         {
             _logger.LogInformation("Iniciando a criação do contato.");
-
             var contatoValidator = new ContatoValidator();
             var result = contatoValidator.Validate(contato);
             if (!result.IsValid)

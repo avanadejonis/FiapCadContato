@@ -24,8 +24,8 @@ namespace Fiap.Test
             var tarefaService = new Mock<IContatoRepository<Contato>>();
             var mock = new Mock<ILogger<ContatosController>>();
             ILogger<ContatosController> logger = mock.Object;
-            
-            
+
+
             tarefaService.Setup(_ => _.Get(1)).Returns(GetContato());
             var sut = new ContatosController(tarefaService.Object, logger);
             /// Act
@@ -34,6 +34,40 @@ namespace Fiap.Test
             // /// Assert
             //result.StatusCode.Should().Be(200);
             Assert.NotNull(result);
+        }
+
+        //[Fact]
+        //public async void TesteIntegrado()
+        //{
+        //    HttpClient client = new HttpClient();
+        //    string path = "https://fiapcadcontato-gdc5hnhfdchmgma4.eastus2-01.azurewebsites.net/api/Contatos/GetContato/2";
+
+        //    Contato contato = null;
+        //    HttpResponseMessage response = await client.GetAsync(path);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        contato = await response.Content.ReadAsAsync<Contato>();
+        //        if(contato != null)
+        //        {
+        //            Assert.NotNull(contato);
+        //        }
+        //    }
+        //}        
+        
+        [Fact]
+        public async void TesteIntegrado()
+        {
+            var client = new HttpClient();
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://fiapcadcontato-gdc5hnhfdchmgma4.eastus2-01.azurewebsites.net/api/Contatos/GetContato/2");
+            request.Headers.Add("accept", "text/plain");
+            request.Headers.Add("Cookie", "ARRAffinity=83f23ae8dfaa8a0533d66b8a922e407f4786668a702f4c1568fb5c1e8e5aaeed; ARRAffinitySameSite=83f23ae8dfaa8a0533d66b8a922e407f4786668a702f4c1568fb5c1e8e5aaeed");
+            var response = await client.SendAsync(request);
+            if(response.IsSuccessStatusCode)
+            {
+                var contato = await response.Content.ReadAsStringAsync();
+                Assert.NotNull(contato);
+            }
+            response.EnsureSuccessStatusCode();
         }
 
         [Fact]

@@ -1,15 +1,14 @@
-using Fiap.Domain.Entities;
 using Fiap.Domain.Interfaces;
 using Fiap.Infraestructure.Context;
 using Fiap.Infraestructure.Repositories;
 using FiapCadContato.Validators;
 using FluentValidation;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
-using System.Data;
+using OpenTelemetry.Metrics;
+using Prometheus;
 using System.Globalization;
 using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +17,11 @@ builder.Services.AddSingleton<IDbContext, DbContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped(typeof(IContatoRepository<>), typeof(ContatoRepository<>));
 builder.Services.AddTransient<IValidator<ContatoInput>, ContatoValidator>();
+builder.Services.AddMetrics();//Add this -> to set default metrics data configuration
+
+
+
+builder.Services.UseHttpClientMetrics();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -41,11 +45,30 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+app.UseMetricServer();
+app.UseHttpMetrics();
+
+app.MapGet("/random-number", () =>
+{
+    var number = Random.Shared.Next(0, 10);
+    if (number >= 7)
+        return Results.Unauthorized();
+    return Results.Ok(number);
+});
+
 app.UseRouting();
 
 app.UseHttpsRedirection();
 
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseAuthentication();
 app.UseAuthorization();
+//place before app.UseEndpoints() to avoid losing some metrics
+app.UseMetricServer();
 
 app.MapControllers();
 
