@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Test
         run: dotnet test Fiap.Test.csproj --verbosity minimal
-        working-directory: /Fiap.Test
+        working-directory: FiapCadContato/Fiap.Test
 
   build:
     runs-on: windows-latest
