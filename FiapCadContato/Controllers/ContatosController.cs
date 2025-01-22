@@ -126,7 +126,7 @@ namespace FiapCadContato.Controllers
 
         // POST api/Contato
         ///<summary>
-        /// Cria um item na tabela de Contatos.
+        /// Cria um item na tabela do SQL Azure de Contatos.
         /// </summary>
         /// <remarks>
         /// Exemplo:
