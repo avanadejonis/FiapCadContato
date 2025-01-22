@@ -6,20 +6,12 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
   
-  - job_name: "services"
-    static_configs:
-      - targets: ["host.docker.internal:7079"]
-    metrics_path: '/actuator/prometheus'
-
-  - job_name: 'spring-actuator'
-    metrics_path: '/actuator/prometheus'
-    static_configs:
-      - targets: ['docker.for.win.localhost:8082']
-
   - job_name: 'FiapCadContato'
-    scheme: https
     static_configs:
       - targets: ['localhost:7079']
+    scheme: https  # to use https instead of http for scraping
+    tls_config:
+      insecure_skip_verify: true  # This is the key
 
   - job_name: 'cadvisor'
     static_configs:

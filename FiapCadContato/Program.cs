@@ -65,9 +65,20 @@ app.UseCors(x => x
     .AllowAnyMethod()
     .AllowAnyHeader());
 
+app.UseRouting();
+
+// global cors policy
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
 app.UseAuthentication();
 app.UseAuthorization();
 //place before app.UseEndpoints() to avoid losing some metrics
+app.UseMetricServer();
+app.UseEndpoints(endpoints => endpoints.MapControllers());
+
 app.UseMetricServer();
 
 app.MapControllers();
